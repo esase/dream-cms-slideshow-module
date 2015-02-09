@@ -104,6 +104,7 @@ class SlideshowImage extends ApplicationAbstractCustomForm
         if (!$this->form) {
             // add preview for the image
             if ($this->image) {
+                $this->formElements['image']['required'] = false;
                 $this->formElements['image']['extra_options']['preview'] = true;
                 $this->formElements['image']['extra_options']['file_url'] =
                         ApplicationService::getResourcesUrl() . SlideshowBaseModel::getImagesDir() . $this->image;

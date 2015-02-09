@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dream CMS \"slideshow\" module\n"
 "POT-Creation-Date: 2013-07-19 11:59+0600\n"
-"PO-Revision-Date: 2015-02-08 13:04+0600\n"
+"PO-Revision-Date: 2015-02-09 16:44+0600\n"
 "Last-Translator: AlexE <alexermashev@gmail.com>\n"
 "Language-Team: \n"
 "Language: English\n"
@@ -14,6 +14,21 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "The selected image has been deleted"
+msgstr "The selected image has been deleted"
+
+msgid "Selected images have been deleted"
+msgstr "Selected images have been deleted"
+
+msgid "Selected images will be deleted. Are you sure?"
+msgstr "Selected images will be deleted. Are you sure?"
+
+msgid "Image has been edited"
+msgstr "Image has been edited"
+
+msgid "Edit the image"
+msgstr "Edit the image"
 
 msgid "Image has been added"
 msgstr "Image has been added"
@@ -69,6 +84,33 @@ msgstr "Slideshow"
 msgid "Module allows to publish photos slideshow on the site"
 msgstr "Module allows to publish photos slideshow on the site"
 
+msgid "Event - Deleting slideshow images"
+msgstr "Deleting slideshow images"
+
+msgid "Event - Slideshow image deleted by guest"
+msgstr "Guest deleted the slideshow image with id - \"%d\""
+
+msgid "Event - Slideshow image deleted by user"
+msgstr "\"%s\" deleted the slideshow image with id - \"%d\""
+
+msgid "Event - Editing slideshow images"
+msgstr "Editing slideshow images"
+
+msgid "Event - Slideshow image edited by guest"
+msgstr "Guest edited the slideshow image with id - \"%d\""
+
+msgid "Event - Slideshow image edited by user"
+msgstr "\"%s\" edited the slideshow image with id - \"%d\""
+
+msgid "Event - Adding slideshow images"
+msgstr "Adding slideshow images"
+
+msgid "Event - Slideshow image added by guest"
+msgstr "Guest added the slideshow image with id - \"%d\""
+
+msgid "Event - Slideshow image added by user"
+msgstr "\"%s\" added the slideshow image with id - \"%d\""
+
 msgid "Event - Editing slideshow categories"
 msgstr "Editing slideshow categories"
 
@@ -104,3 +146,9 @@ msgstr "Browsing slideshow images in admin area"
 
 msgid "ACL - Adding slideshow images in admin area"
 msgstr "Adding slideshow images in admin area"
+
+msgid "ACL - Editing slideshow images in admin area"
+msgstr "Editing slideshow images in admin area"
+
+msgid "ACL - Deleting slideshow images in admin area"
+msgstr "Deleting slideshow images in admin area"

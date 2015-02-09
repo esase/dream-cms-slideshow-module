@@ -18,6 +18,57 @@ use Exception;
 class SlideshowAdministration extends SlideshowBase
 {
     /**
+     * Edit image
+     *
+     * @param array $imageInfo
+     *      integer id
+     *      string name
+     *      string description
+     *      integer category_id
+     *      string image
+     *      string url
+     *      integer created
+     * @param array $formData
+     *      string name
+     *      string description
+     *      string image
+     *      string url
+     * @param array $image
+     * @return boolean|string
+     */
+    public function editImage($imageInfo, array $formData, array $image = [])
+    {
+        try {
+            $this->adapter->getDriver()->getConnection()->beginTransaction();
+
+            $update = $this->update()
+                ->table('slideshow_image')
+                ->set($formData)
+                ->where([
+                    'id' => $imageInfo['id']
+                ]);
+
+            $statement = $this->prepareStatementForSqlObject($update);
+            $statement->execute();
+
+            // upload the image
+            $this->uploadImage($imageInfo['id'], $image, $imageInfo['image']);
+
+            $this->adapter->getDriver()->getConnection()->commit();
+        }
+        catch (Exception $e) {
+            $this->adapter->getDriver()->getConnection()->rollback();
+            ApplicationErrorLogger::log($e);
+
+            return $e->getMessage();
+        }
+
+        // fire the add image event
+        SlideshowEvent::fireEditImageEvent($imageInfo['id']);
+        return true;
+    }
+
+    /**
      * Add an image
      * 
      * @param integer $categoryId
@@ -56,8 +107,8 @@ class SlideshowAdministration extends SlideshowBase
             return $e->getMessage();
         }
 
-        // fire the add news event
-        //NewsEvent::fireAddNewsEvent($insertId);
+        // fire the add image event
+        SlideshowEvent::fireAddImageEvent($insertId);
         return true;
     }
 
@@ -77,31 +128,33 @@ class SlideshowAdministration extends SlideshowBase
      */
     protected function uploadImage($imageId, array $image, $oldImage = null)
     {
-        // delete an old image
-        if ($oldImage) {
-            if (true !== ($result = $this->deleteImage($oldImage))) {
-                throw new SlideshowException('Image deleting failed');
+        if (!empty($image['name'])) {
+            // delete an old image
+            if ($oldImage) {
+                if (true !== ($result = $this->deleteImage($oldImage))) {
+                    throw new SlideshowException('Image deleting failed');
+                }
             }
+
+            // upload the image
+            if (false === ($imageName =
+                    FileSystemUtility::uploadResourceFile($imageId, $image, self::$imagesDir))) {
+
+                throw new SlideshowException('Image uploading failed');
+            }
+
+            $update = $this->update()
+                ->table('slideshow_image')
+                ->set([
+                    'image' => $imageName
+                ])
+                ->where([
+                    'id' => $imageId
+                ]);
+
+            $statement = $this->prepareStatementForSqlObject($update);
+            $statement->execute();
         }
-
-        // upload the image
-        if (false === ($imageName =
-                FileSystemUtility::uploadResourceFile($imageId, $image, self::$imagesDir))) {
-
-            throw new SlideshowException('Image uploading failed');
-        }
-
-        $update = $this->update()
-            ->table('slideshow_image')
-            ->set([
-                'image' => $imageName
-            ])
-            ->where([
-                'id' => $imageId
-            ]);
-
-        $statement = $this->prepareStatementForSqlObject($update);
-        $statement->execute();
     }
 
     /**

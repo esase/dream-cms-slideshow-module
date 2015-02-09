@@ -97,6 +97,131 @@ class SlideshowAdministrationController extends ApplicationAbstractAdministratio
     }
 
     /**
+     * Edit an image action
+     */
+    public function editImageAction()
+    {
+        // get the image info
+        if (null == ($image = $this->
+                getModel()->getImageInfo($this->getSlug()))) {
+
+            return $this->redirectTo('slideshow-administration', 'list-categories');
+        }
+
+        // get an image form
+        $imageForm = $this->getServiceLocator()
+            ->get('Application\Form\FormManager')
+            ->getInstance('Slideshow\Form\SlideshowImage')
+            ->setImage($image['image']);
+
+        // fill the form with default values
+        $imageForm->getForm()->setData($image);
+        $request = $this->getRequest();
+
+        // validate the form
+        if ($request->isPost()) {
+            // make certain to merge the files info!
+            $post = array_merge_recursive(
+                $request->getPost()->toArray(),
+                $request->getFiles()->toArray()
+            );
+
+            // fill the form with received values
+            $imageForm->getForm()->setData($post, false);
+
+            // save data
+            if ($imageForm->getForm()->isValid()) {
+                // check the permission and increase permission's actions track
+                if (true !== ($result = $this->aclCheckPermission())) {
+                    return $result;
+                }
+
+                // edit the image
+                if (true === ($result = $this->getModel()->
+                        editImage($image, $imageForm->getForm()->getData(), $this->params()->fromFiles('image')))) {
+
+                    $this->flashMessenger()
+                        ->setNamespace('success')
+                        ->addMessage($this->getTranslator()->translate('Image has been edited'));
+                }
+                else {
+                    $this->flashMessenger()
+                        ->setNamespace('error')
+                        ->addMessage($this->getTranslator()->translate($result));
+                }
+
+                return $this->redirectTo('slideshow-administration', 'edit-image', [
+                    'slug' => $image['id']
+                ]);
+            }
+        }
+
+        return new ViewModel([
+            'image_form' => $imageForm->getForm(),
+            'image' => $image
+        ]);
+    }
+
+    /**
+     * Delete selected images
+     */
+    public function deleteImagesAction()
+    {
+        $request = $this->getRequest();
+
+        if ($request->isPost()) {
+            if (null !== ($imagesIds = $request->getPost('images', null))) {
+                // delete selected images
+                $deleteResult = false;
+                $deletedCount = 0;
+
+                foreach ($imagesIds as $imageId) {
+                    // get image info
+                    if (null == ($imageInfo = $this->getModel()->getImageInfo($imageId))) { 
+                        continue;
+                    }
+
+                    // check the permission and increase permission's actions track
+                    if (true !== ($result = $this->aclCheckPermission(null, true, false))) {
+                        $this->flashMessenger()
+                            ->setNamespace('error')
+                            ->addMessage($this->getTranslator()->translate('Access Denied'));
+
+                        break;
+                    }
+
+                    // delete the image
+                    if (true !== ($deleteResult = $this->getModel()->deleteImage($imageInfo))) {
+                        $this->flashMessenger()
+                            ->setNamespace('error')
+                            ->addMessage(($deleteResult ? $this->getTranslator()->translate($deleteResult)
+                                : $this->getTranslator()->translate('Error occurred')));
+
+                        break;
+                    }
+
+                    $deletedCount++;
+                }
+
+                if (true === $deleteResult) {
+                    $message = $deletedCount > 1
+                        ? 'Selected images have been deleted'
+                        : 'The selected image has been deleted';
+
+                    $this->flashMessenger()
+                        ->setNamespace('success')
+                        ->addMessage($this->getTranslator()->translate($message));
+                }
+            }
+        }
+
+        // redirect back
+        return $request->isXmlHttpRequest()
+            ? $this->getResponse()
+            : $this->redirectTo('slideshow-administration', 'browse-images', [], true);
+    }
+
+    /**
      * Add an image action
      */
     public function addImageAction()

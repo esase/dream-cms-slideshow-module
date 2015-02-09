@@ -22,7 +22,9 @@ INSERT INTO `acl_resource` (`resource`, `description`, `module`) VALUES
 ('slideshow_administration_add_category', 'ACL - Adding slideshow categories in admin area', @moduleId),
 ('slideshow_administration_edit_category', 'ACL - Editing slideshow categories in admin area', @moduleId),
 ('slideshow_administration_browse_images', 'ACL - Browsing slideshow images in admin area', @moduleId),
-('slideshow_administration_add_image', 'ACL - Adding slideshow images in admin area', @moduleId);
+('slideshow_administration_add_image', 'ACL - Adding slideshow images in admin area', @moduleId),
+('slideshow_administration_edit_image', 'ACL - Editing slideshow images in admin area', @moduleId),
+('slideshow_administration_delete_images', 'ACL - Deleting slideshow images in admin area', @moduleId);
 
 INSERT INTO `acl_resource` (`resource`, `description`, `module`) VALUES
 ('slideshow_view', 'ACL - Viewing slideshow', @moduleId);
@@ -36,7 +38,10 @@ INSERT INTO `acl_resource_connection` (`role`, `resource`) VALUES
 
 INSERT INTO `application_event` (`name`, `module`, `description`) VALUES
 ('slideshow_add_category', @moduleId, 'Event - Adding slideshow categories'),
-('slideshow_edit_category', @moduleId, 'Event - Editing slideshow categories');
+('slideshow_edit_category', @moduleId, 'Event - Editing slideshow categories'),
+('slideshow_add_image', @moduleId, 'Event - Adding slideshow images'),
+('slideshow_edit_image', @moduleId, 'Event - Editing slideshow images'),
+('slideshow_delete_image', @moduleId, 'Event - Deleting slideshow images');
 
 -- module tables
 

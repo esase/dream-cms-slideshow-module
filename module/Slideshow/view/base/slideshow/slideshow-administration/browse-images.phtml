@@ -89,8 +89,22 @@
             ]
         ],
         'multiple_actions' => [
+            [
+                'name' => $this->translate('Delete selected'),
+                'controller' => 'slideshow-administration',
+                'action' => 'delete-images',
+                'check_acl' => true,
+                'confirm' => $this->translate('Selected images will be deleted. Are you sure?')
+            ]
         ],
         'single_actions' => [
+            [
+                'name' => $this->translate('Edit the image'),
+                'controller' => 'slideshow-administration',
+                'action' => 'edit-image',
+                'check_acl' => true,
+                'image' => $this->layoutAsset('icon/edit_action.png', 'image')
+            ],
         ]
     ],
     'actions_options' => [
