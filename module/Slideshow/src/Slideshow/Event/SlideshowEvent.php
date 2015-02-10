@@ -7,6 +7,11 @@ use Application\Event\ApplicationAbstractEvent;
 class SlideshowEvent extends ApplicationAbstractEvent
 {
     /**
+     * Delete category event
+     */
+    const DELETE_CATEGORY = 'slideshow_delete_category';
+
+    /**
      * Add category event
      */
     const ADD_CATEGORY = 'slideshow_add_category';
@@ -133,6 +138,27 @@ class SlideshowEvent extends ApplicationAbstractEvent
             : [UserIdentityService::getCurrentUserIdentity()['nick_name'], $categoryId];
 
         self::fireEvent(self::ADD_CATEGORY, 
+                $categoryId, UserIdentityService::getCurrentUserIdentity()['user_id'], $eventDesc, $eventDescParams);
+    }
+
+	/**
+     * Fire delete category event
+     *
+     * @param integer $categoryId
+     * @return void
+     */
+    public static function fireDeleteCategoryEvent($categoryId)
+    {
+        // event's description
+        $eventDesc = UserIdentityService::isGuest()
+            ? 'Event - Slideshow category deleted by guest'
+            : 'Event - Slideshow category deleted by user';
+
+        $eventDescParams = UserIdentityService::isGuest()
+            ? [$categoryId]
+            : [UserIdentityService::getCurrentUserIdentity()['nick_name'], $categoryId];
+
+        self::fireEvent(self::DELETE_CATEGORY, 
                 $categoryId, UserIdentityService::getCurrentUserIdentity()['user_id'], $eventDesc, $eventDescParams);
     }
 }

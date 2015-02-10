@@ -33,6 +33,15 @@
 <?php $this->extraActions = trim($this->partial('administration-partial/extra-actions', ['pages' => [
     [
         'controller' => 'slideshow-administration',
+        'action' => 'browse-images',
+        'name' => $this->translate('Browse images'),
+		'params' => [
+			'slug' => $this->category['id']
+		],
+        'check_acl' => true
+    ],
+	[
+        'controller' => 'slideshow-administration',
         'action' => 'delete-categories',
         'name' => $this->translate('Delete the category'),
         'check_acl' => true,

@@ -20,6 +20,7 @@ INSERT INTO `application_admin_menu` (`name`, `controller`, `action`, `module`, 
 INSERT INTO `acl_resource` (`resource`, `description`, `module`) VALUES
 ('slideshow_administration_list_categories', 'ACL - Viewing slideshow categories in admin area', @moduleId),
 ('slideshow_administration_add_category', 'ACL - Adding slideshow categories in admin area', @moduleId),
+('slideshow_administration_delete_categories', 'ACL - Deleting slideshow categories in admin area', @moduleId),
 ('slideshow_administration_edit_category', 'ACL - Editing slideshow categories in admin area', @moduleId),
 ('slideshow_administration_browse_images', 'ACL - Browsing slideshow images in admin area', @moduleId),
 ('slideshow_administration_add_image', 'ACL - Adding slideshow images in admin area', @moduleId),
@@ -37,6 +38,7 @@ INSERT INTO `acl_resource_connection` (`role`, `resource`) VALUES
 -- application events
 
 INSERT INTO `application_event` (`name`, `module`, `description`) VALUES
+('slideshow_delete_category', @moduleId, 'Event - Deleting slideshow categories'),
 ('slideshow_add_category', @moduleId, 'Event - Adding slideshow categories'),
 ('slideshow_edit_category', @moduleId, 'Event - Editing slideshow categories'),
 ('slideshow_add_image', @moduleId, 'Event - Adding slideshow images'),

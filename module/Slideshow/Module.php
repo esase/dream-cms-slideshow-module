@@ -1,8 +1,32 @@
 <?php
 namespace Slideshow;
 
+use Localization\Event\LocalizationEvent;
+use Zend\ModuleManager\ModuleManagerInterface;
+
 class Module
 {
+    /**
+     * Init
+     */
+    public function init(ModuleManagerInterface $moduleManager)
+    {
+        $eventManager = LocalizationEvent::getEventManager();
+        $eventManager->attach(LocalizationEvent::UNINSTALL, function ($e) use ($moduleManager) {
+            $slideshow = $moduleManager->getEvent()->getParam('ServiceManager')
+                ->get('Application\Model\ModelManager')
+                ->getInstance('Slideshow\Model\SlideshowBase');
+
+            // delete a language dependent slideshow categories
+            if (null != ($categories = $slideshow->getAllCategories($e->getParam('object_id')))) {
+                // process categories
+                foreach ($categories as $category) {
+                    $slideshow->deleteCategory((array) $category);
+                }
+            }
+        });
+    }
+
     /**
      * Return autoloader config array
      *

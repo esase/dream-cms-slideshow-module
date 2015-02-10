@@ -131,7 +131,7 @@ class SlideshowAdministration extends SlideshowBase
         if (!empty($image['name'])) {
             // delete an old image
             if ($oldImage) {
-                if (true !== ($result = $this->deleteImage($oldImage))) {
+                if (true !== ($result = $this->deleteSlideShowImage($oldImage))) {
                     throw new SlideshowException('Image deleting failed');
                 }
             }

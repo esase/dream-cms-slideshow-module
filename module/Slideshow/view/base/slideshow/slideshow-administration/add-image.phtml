@@ -48,6 +48,23 @@
 <?php $this->extraActions = trim($this->partial('administration-partial/extra-actions', ['pages' => [
     [
         'controller' => 'slideshow-administration',
+        'action' => 'edit-category',
+		'params' => [
+			'slug' => $this->category['id']
+		],
+        'name' => $this->translate('Edit the category'),
+        'check_acl' => true
+    ],
+	[
+        'controller' => 'slideshow-administration',
+        'action' => 'delete-categories',
+        'name' => $this->translate('Delete the category'),
+        'check_acl' => true,
+        'confirm' => $this->translate('Category will be deleted. Are you sure?'),
+        'confirm_callback' => "function(link) { $.post($(link).attr('href'), {'categories' : [{$this->category['id']}]}, function(){location.href='{$this->url('application/page', ['controller' => 'slideshow-administration', 'action' => 'list-categories'], ['force_canonical' => true])}'}) }"
+    ],
+    [
+        'controller' => 'slideshow-administration',
         'action' => 'add-category',
         'name' => $this->translate('Add a category'),
         'check_acl' => true

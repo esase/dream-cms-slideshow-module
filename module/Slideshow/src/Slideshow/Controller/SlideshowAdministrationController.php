@@ -27,6 +27,65 @@ class SlideshowAdministrationController extends ApplicationAbstractAdministratio
     }
 
     /**
+     * Delete selected categories
+     */
+    public function deleteCategoriesAction()
+    {
+        $request = $this->getRequest();
+
+        if ($request->isPost()) {
+            if (null !== ($categoriesIds = $request->getPost('categories', null))) {
+                // delete selected categories
+                $deleteResult = false;
+                $deletedCount = 0;
+
+                foreach ($categoriesIds as $categoryId) {
+                    // get category info
+                    if (null == ($categoryInfo = $this->getModel()->getCategoryInfo($categoryId))) { 
+                        continue;
+                    }
+
+                    // check the permission and increase permission's actions track
+                    if (true !== ($result = $this->aclCheckPermission(null, true, false))) {
+                        $this->flashMessenger()
+                            ->setNamespace('error')
+                            ->addMessage($this->getTranslator()->translate('Access Denied'));
+
+                        break;
+                    }
+
+                    // delete the category
+                    if (true !== ($deleteResult = $this->getModel()->deleteCategory($categoryInfo))) {
+                        $this->flashMessenger()
+                            ->setNamespace('error')
+                            ->addMessage(($deleteResult ? $this->getTranslator()->translate($deleteResult)
+                                : $this->getTranslator()->translate('Error occurred')));
+
+                        break;
+                    }
+
+                    $deletedCount++;
+                }
+
+                if (true === $deleteResult) {
+                    $message = $deletedCount > 1
+                        ? 'Selected categories have been deleted'
+                        : 'The selected category has been deleted';
+
+                    $this->flashMessenger()
+                        ->setNamespace('success')
+                        ->addMessage($this->getTranslator()->translate($message));
+                }
+            }
+        }
+
+        // redirect back
+        return $request->isXmlHttpRequest()
+            ? $this->getResponse()
+            : $this->redirectTo('slideshow-administration', 'list-categories', [], true);
+    }
+
+    /**
      * Slideshow categories list 
      */
     public function listCategoriesAction()
