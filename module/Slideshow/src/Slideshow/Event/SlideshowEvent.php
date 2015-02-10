@@ -141,7 +141,7 @@ class SlideshowEvent extends ApplicationAbstractEvent
                 $categoryId, UserIdentityService::getCurrentUserIdentity()['user_id'], $eventDesc, $eventDescParams);
     }
 
-	/**
+   /**
      * Fire delete category event
      *
      * @param integer $categoryId

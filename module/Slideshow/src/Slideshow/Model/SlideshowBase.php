@@ -27,7 +27,7 @@ class SlideshowBase extends ApplicationAbstractBase
         return self::$imagesDir;
     }
 
-	/**
+   /**
      * Get all categories
      * 
      * @param string $language
@@ -43,11 +43,11 @@ class SlideshowBase extends ApplicationAbstractBase
                 'language'
             ]);
 
-		if ($language) {
+      if ($language) {
             $select->where([
                 'language' => $language
             ]);
-		}
+      }
 
         $statement = $this->prepareStatementForSqlObject($select);
         $resultSet = new ResultSet;
@@ -56,14 +56,14 @@ class SlideshowBase extends ApplicationAbstractBase
         return $resultSet;
     }
 
-	/**
+   /**
      * Delete a category
      *
      * @param array $categoryInfo
      *      integer id
      *      string name
      *      string language
-	 * @throws Slideshow/Exception/SlideshowException
+    * @throws Slideshow/Exception/SlideshowException
      * @return boolean|string
      */
     public function deleteCategory(array $categoryInfo)
@@ -71,27 +71,27 @@ class SlideshowBase extends ApplicationAbstractBase
         try {
             $this->adapter->getDriver()->getConnection()->beginTransaction();
 
-			// get all images
-			$select = $this->select();
-	        $select->from('slideshow_image')
-	            ->columns([
-	                'image'
-	            ])
-				->where([
-					'category_id' => $categoryInfo['id']
-				]);
+         // get all images
+         $select = $this->select();
+           $select->from('slideshow_image')
+               ->columns([
+                   'image'
+               ])
+            ->where([
+               'category_id' => $categoryInfo['id']
+            ]);
 
-			$statement = $this->prepareStatementForSqlObject($select);
-	        $resultSet = new ResultSet;
-	        $resultSet->initialize($statement->execute());
+         $statement = $this->prepareStatementForSqlObject($select);
+           $resultSet = new ResultSet;
+           $resultSet->initialize($statement->execute());
 
-			// delete assigned images
-			foreach ($resultSet as $image) {
-				// delete an image
-				if (true !== ($imageDeleteResult = $this->deleteSlideShowImage($image['image']))) {
-					throw new SlideshowException('Image deleting failed');
-				}
-			}
+         // delete assigned images
+         foreach ($resultSet as $image) {
+            // delete an image
+            if (true !== ($imageDeleteResult = $this->deleteSlideShowImage($image['image']))) {
+               throw new SlideshowException('Image deleting failed');
+            }
+         }
 
             $delete = $this->delete()
                 ->from('slideshow_category')
@@ -115,7 +115,7 @@ class SlideshowBase extends ApplicationAbstractBase
 
         // fire the delete category event
         if ($result) {
-			SlideshowEvent::fireDeleteCategoryEvent($categoryInfo['id']);
+         SlideshowEvent::fireDeleteCategoryEvent($categoryInfo['id']);
         }
 
         return $result;
@@ -150,9 +150,9 @@ class SlideshowBase extends ApplicationAbstractBase
             $result = $statement->execute();
 
             // delete an image
-			if (true !== ($imageDeleteResult = $this->deleteSlideShowImage($imageInfo['image']))) {
-				throw new SlideshowException('Image deleting failed');
-			}
+         if (true !== ($imageDeleteResult = $this->deleteSlideShowImage($imageInfo['image']))) {
+            throw new SlideshowException('Image deleting failed');
+         }
 
             $this->adapter->getDriver()->getConnection()->commit();
         }
@@ -167,7 +167,7 @@ class SlideshowBase extends ApplicationAbstractBase
 
         // fire the delete image event
         if ($result) {
-			SlideshowEvent::fireDeleteImageEvent($imageInfo['id']);
+         SlideshowEvent::fireDeleteImageEvent($imageInfo['id']);
         }
 
         return $result;

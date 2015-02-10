@@ -37,13 +37,13 @@
     [
         'controller' => 'slideshow-administration',
         'action' => 'edit-category',
-		'params' => [
-			'slug' => $this->category['id']
-		],
+      'params' => [
+         'slug' => $this->category['id']
+      ],
         'name' => $this->translate('Edit the category'),
         'check_acl' => true
     ],
-	[
+   [
         'controller' => 'slideshow-administration',
         'action' => 'delete-categories',
         'name' => $this->translate('Delete the category'),
@@ -146,7 +146,7 @@
         <div class="col-md-8">
             <!-- render a data grid -->
             <?php echo $this->partial('administration-partial/panel', [
-				'notification' => false,
+            'notification' => false,
                 'title' => $this->translate('Images'),
                 'body' => $this->content
             ]) ?>
@@ -155,7 +155,7 @@
         <div class="col-md-12">
             <!-- render a data grid -->
             <?php echo $this->partial('administration-partial/panel', [
-				'notification' => false,
+            'notification' => false,
                 'title' => $this->translate('Images'),
                 'body' => $this->content
             ]) ?>

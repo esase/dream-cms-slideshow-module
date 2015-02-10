@@ -49,13 +49,13 @@
     [
         'controller' => 'slideshow-administration',
         'action' => 'edit-category',
-		'params' => [
-			'slug' => $this->category['id']
-		],
+      'params' => [
+         'slug' => $this->category['id']
+      ],
         'name' => $this->translate('Edit the category'),
         'check_acl' => true
     ],
-	[
+   [
         'controller' => 'slideshow-administration',
         'action' => 'delete-categories',
         'name' => $this->translate('Delete the category'),
