@@ -48,12 +48,12 @@ class SlideshowWidget extends PageAbstractWidget
     public function getContent() 
     {
         if (AclService::checkPermission('slideshow_view', false) 
-				&& null != ($category = $this->getWidgetSetting('slideshow_category'))) {
+                && null != ($category = $this->getWidgetSetting('slideshow_category'))) {
 
             $images = $this->getModel()->getImages($category);
 
             if (count($images)) {
-				AclService::checkPermission('slideshow_view', true);
+                AclService::checkPermission('slideshow_view', true);
                 return $this->getView()->partial('slideshow/widget/slideshow', [
                     'enable_slideshow' => (int) $this->getWidgetSetting('slideshow_on'),
                     'images_width' => (int) $this->getWidgetSetting('slideshow_image_width'),
