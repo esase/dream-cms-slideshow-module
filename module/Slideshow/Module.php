@@ -65,11 +65,11 @@ class Module
     {
         return [
             'invokables' => [
-				'slideshowWidget' => 'Slideshow\View\Widget\SlideshowWidget'
+                'slideshowWidget' => 'Slideshow\View\Widget\SlideshowWidget'
             ],
             'factories' => [
-			    'slideshowImageUrl' => function() {
-					$imagesDir = ApplicationService::getResourcesUrl() . SlideshowBaseModel::getImagesDir();
+                'slideshowImageUrl' => function() {
+                    $imagesDir = ApplicationService::getResourcesUrl() . SlideshowBaseModel::getImagesDir();
                     return new \Slideshow\View\Helper\SlideshowImageUrl($imagesDir);
                 }
             ]

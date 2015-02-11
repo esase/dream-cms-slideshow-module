@@ -25,7 +25,7 @@ class SlideshowWidget extends PageAbstractWidget
         return $this->model;
     }
 
-	/**
+    /**
      * Include js and css files
      *
      * @return void
@@ -33,10 +33,10 @@ class SlideshowWidget extends PageAbstractWidget
     public function includeJsCssFiles()
     {
         $this->getView()->layoutHeadScript()->
-				appendFile($this->getView()->layoutAsset('jquery.flexslider.js', 'js', 'slideshow'));
+                appendFile($this->getView()->layoutAsset('jquery.flexslider.js', 'js', 'slideshow'));
 
-		$this->getView()->layoutHeadLink()->
-				appendStylesheet($this->getView()->layoutAsset('flexslider.css', 'css', 'slideshow'));
+        $this->getView()->layoutHeadLink()->
+                appendStylesheet($this->getView()->layoutAsset('flexslider.css', 'css', 'slideshow'));
     }
 
     /**
@@ -46,19 +46,19 @@ class SlideshowWidget extends PageAbstractWidget
      */
     public function getContent() 
     {
-		if (null != ($category = $this->getWidgetSetting('slideshow_category'))) {
-			$images = $this->getModel()->getImages($category);
+        if (null != ($category = $this->getWidgetSetting('slideshow_category'))) {
+            $images = $this->getModel()->getImages($category);
 
-			if (count($images)) {
-				return $this->getView()->partial('slideshow/widget/slideshow', [
-					'enable_slideshow' => (int) $this->getWidgetSetting('slideshow_on'),
-					'images_width' => (int) $this->getWidgetSetting('slideshow_image_width'),
-					'images_height' => (int) $this->getWidgetSetting('slideshow_image_height'),
+            if (count($images)) {
+                return $this->getView()->partial('slideshow/widget/slideshow', [
+                    'enable_slideshow' => (int) $this->getWidgetSetting('slideshow_on'),
+                    'images_width' => (int) $this->getWidgetSetting('slideshow_image_width'),
+                    'images_height' => (int) $this->getWidgetSetting('slideshow_image_height'),
                     'images' => $images
                 ]);
-			}
-		}
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 }
