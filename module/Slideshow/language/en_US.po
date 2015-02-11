@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dream CMS \"slideshow\" module\n"
 "POT-Creation-Date: 2013-07-19 11:59+0600\n"
-"PO-Revision-Date: 2015-02-10 12:27+0600\n"
+"PO-Revision-Date: 2015-02-11 14:14+0600\n"
 "Last-Translator: AlexE <alexermashev@gmail.com>\n"
 "Language-Team: \n"
 "Language: English\n"
@@ -14,6 +14,21 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Images height"
+msgstr "Images height"
+
+msgid "Images width"
+msgstr "Images width"
+
+msgid "Enable slideshow"
+msgstr "Enable slideshow"
+
+msgid "Animation"
+msgstr "Animation"
+
+msgid "Category"
+msgstr "Category"
 
 msgid "The selected category has been deleted"
 msgstr "The selected category has been deleted"
