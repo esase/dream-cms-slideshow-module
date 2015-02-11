@@ -2,6 +2,7 @@
 namespace Slideshow\View\Widget;
 
 use Page\View\Widget\PageAbstractWidget;
+use Acl\Service\Acl as AclService;
 
 class SlideshowWidget extends PageAbstractWidget
 {
@@ -46,7 +47,9 @@ class SlideshowWidget extends PageAbstractWidget
      */
     public function getContent() 
     {
-        if (null != ($category = $this->getWidgetSetting('slideshow_category'))) {
+        if (AclService::checkPermission('slideshow_view', false) 
+				&& null != ($category = $this->getWidgetSetting('slideshow_category'))) {
+
             $images = $this->getModel()->getImages($category);
 
             if (count($images)) {
