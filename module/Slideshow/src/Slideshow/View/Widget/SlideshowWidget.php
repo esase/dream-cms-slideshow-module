@@ -53,6 +53,7 @@ class SlideshowWidget extends PageAbstractWidget
             $images = $this->getModel()->getImages($category);
 
             if (count($images)) {
+				AclService::checkPermission('slideshow_view', true);
                 return $this->getView()->partial('slideshow/widget/slideshow', [
                     'enable_slideshow' => (int) $this->getWidgetSetting('slideshow_on'),
                     'images_width' => (int) $this->getWidgetSetting('slideshow_image_width'),
