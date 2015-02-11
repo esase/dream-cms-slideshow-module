@@ -27,7 +27,7 @@ class SlideshowBase extends ApplicationAbstractBase
         return self::$imagesDir;
     }
 
-   /**
+    /**
      * Get all categories
      * 
      * @param string $language
@@ -56,7 +56,7 @@ class SlideshowBase extends ApplicationAbstractBase
         return $resultSet;
     }
 
-   /**
+    /**
      * Delete a category
      *
      * @param array $categoryInfo

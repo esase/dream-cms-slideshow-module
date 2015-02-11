@@ -1,6 +1,8 @@
 <?php
 namespace Slideshow;
 
+use Application\Service\Application as ApplicationService;
+use Slideshow\Model\SlideshowBase as SlideshowBaseModel;
 use Localization\Event\LocalizationEvent;
 use Zend\ModuleManager\ModuleManagerInterface;
 
@@ -63,8 +65,13 @@ class Module
     {
         return [
             'invokables' => [
+				'slideshowWidget' => 'Slideshow\View\Widget\SlideshowWidget'
             ],
             'factories' => [
+			    'slideshowImageUrl' => function() {
+					$imagesDir = ApplicationService::getResourcesUrl() . SlideshowBaseModel::getImagesDir();
+                    return new \Slideshow\View\Helper\SlideshowImageUrl($imagesDir);
+                }
             ]
         ];
     }
