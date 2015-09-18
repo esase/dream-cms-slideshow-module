@@ -50,6 +50,30 @@ class SlideshowBase extends ApplicationAbstractBase
     }
 
     /**
+     * Get unused categories
+     *
+     * @param integer $limit
+     * @return array
+     */
+    public function getUnusedCategories($limit)
+    {
+        $select = $this->select();
+        $select->from('slideshow_category')
+            ->columns([
+                'id',
+                'name'
+            ])
+            ->limit($limit)
+            ->where->and->isNull('language');
+
+        $statement = $this->prepareStatementForSqlObject($select);
+        $resultSet = new ResultSet;
+        $resultSet->initialize($statement->execute());
+
+        return $resultSet->toArray();
+    }
+
+    /**
      * Get all categories
      * 
      * @param string $language

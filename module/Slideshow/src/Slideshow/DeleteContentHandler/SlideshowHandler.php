@@ -20,70 +20,59 @@
  * Display of Attribution Information is required in Larger Works which are defined in the CPAL as a work
  * which combines Covered Code or portions thereof with code not governed by the terms of the CPAL.
  */
-namespace Slideshow;
+namespace Slideshow\DeleteContentHandler;
 
-use Application\Service\Application as ApplicationService;
-use Slideshow\Model\SlideshowBase as SlideshowBaseModel;
+use Application\DeleteContent\ApplicationAbstractDeleteContent;
 
-class Module
+class SlideshowHandler extends ApplicationAbstractDeleteContent
 {
     /**
-     * Return auto loader config array
-     *
-     * @return array
+     * Delete items limit
      */
-    public function getAutoloaderConfig()
+    const DELETE_ITEMS_LIMIT = 200;
+
+    /**
+     * Model instance
+     *
+     * @var \Slideshow\Model\SlideshowBase
+     */
+    protected $model;
+
+    /**
+     * Get model
+     *
+     * @return \Slideshow\Model\SlideshowBase
+     */
+    protected function getModel()
     {
-        return [
-            'Zend\Loader\ClassMapAutoloader' => [
-                __DIR__ . '/autoload_classmap.php'
-            ],
-            'Zend\Loader\StandardAutoloader' => [
-                'namespaces' => [
-                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__
-                ]
-            ]
-        ];
+        if (!$this->model) {
+            $this->model = $this->getServiceLocator()
+                ->get('Application\Model\ModelManager')
+                ->getInstance('Slideshow\Model\SlideshowBase');
+        }
+
+        return $this->model;
     }
 
     /**
-     * Return service config array
      *
-     * @return array
-     */
-    public function getServiceConfig()
-    {
-        return [];
-    }
-
-    /**
-     * Init view helpers
+     * Delete items
      *
-     * @return array
+     * @return integer deleted items count
      */
-    public function getViewHelperConfig()
+    public function deleteItems()
     {
-        return [
-            'invokables' => [
-                'slideshowWidget' => 'Slideshow\View\Widget\SlideshowWidget'
-            ],
-            'factories' => [
-                'slideshowImageUrl' => function() {
-                    $imagesDir = ApplicationService::getResourcesUrl() . SlideshowBaseModel::getImagesDir();
+        $itemsDeleted = 0;
 
-                    return new \Slideshow\View\Helper\SlideshowImageUrl($imagesDir);
+        // delete categories  with empty languages
+        if (null != ($categories = $this->getModel()->getUnusedCategories(self::DELETE_ITEMS_LIMIT))) {
+            foreach ($categories as $category) {
+                if (true === ($result = $this->getModel()->deleteCategory($category))) {
+                    $itemsDeleted++;
                 }
-            ]
-        ];
-    }
+            }
+        }
 
-    /**
-     * Return path to config file
-     *
-     * @return array
-     */
-    public function getConfig()
-    {
-        return include __DIR__ . '/config/module.config.php';
+        return $itemsDeleted;
     }
 }
