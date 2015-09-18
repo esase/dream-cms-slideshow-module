@@ -12,7 +12,7 @@
 ]) ?>
 
 <?php $this->content = $this->partial('partial/data-grid', [
-    'controller' => 'slideshow-administration',
+    'controller' => 'slideshows-administration',
     'action' => 'list-categories',
     'order_by' => $this->order_by,
     'order_type' => $this->order_type,
@@ -43,7 +43,7 @@
         'regular_actions' => [
             [
                 'name' => $this->translate('Add a category'),
-                'controller' => 'slideshow-administration',
+                'controller' => 'slideshows-administration',
                 'action' => 'add-category',
                 'check_acl' => true
             ]
@@ -51,7 +51,7 @@
         'multiple_actions' => [
             [
                 'name' => $this->translate('Delete selected'),
-                'controller' => 'slideshow-administration',
+                'controller' => 'slideshows-administration',
                 'action' => 'delete-categories',
                 'check_acl' => true,
                 'confirm' => $this->translate('Selected slideshow categories will be deleted. Are you sure?')
@@ -60,14 +60,14 @@
         'single_actions' => [
             [
                 'name' => $this->translate('Edit the category'),
-                'controller' => 'slideshow-administration',
+                'controller' => 'slideshows-administration',
                 'action' => 'edit-category',
                 'check_acl' => true,
                 'image' => $this->layoutAsset('icon/edit_action.png', 'image')
             ],
             [
                 'name' => $this->translate('Browse images'),
-                'controller' => 'slideshow-administration',
+                'controller' => 'slideshows-administration',
                 'action' => 'browse-images',
                 'check_acl' => true,
                 'image' => $this->layoutAsset('icon/browse_action.png', 'image', 'slideshow')

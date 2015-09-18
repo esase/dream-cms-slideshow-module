@@ -20,13 +20,13 @@
     'pages' => [
         'list' => [
             'name' => $this->parentPageTitle,
-            'controller' => 'slideshow-administration',
+            'controller' => 'slideshows-administration',
             'action' => 'list-categories',
             'check_acl' => true
         ],
         'browse_images' => [
             'name' => $this->category['name'] . ' - ' . $this->subPageTitle,
-            'controller' => 'slideshow-administration',
+            'controller' => 'slideshows-administration',
             'action' => 'browse-images',
             'check_acl' => true
         ]
@@ -35,24 +35,24 @@
 
 <?php $this->extraActions = trim($this->partial('administration-partial/extra-actions', ['pages' => [
     [
-        'controller' => 'slideshow-administration',
+        'controller' => 'slideshows-administration',
         'action' => 'edit-category',
-      'params' => [
-         'slug' => $this->category['id']
-      ],
+        'params' => [
+            'slug' => $this->category['id']
+        ],
         'name' => $this->translate('Edit the category'),
         'check_acl' => true
     ],
-   [
-        'controller' => 'slideshow-administration',
+    [
+        'controller' => 'slideshows-administration',
         'action' => 'delete-categories',
         'name' => $this->translate('Delete the category'),
         'check_acl' => true,
         'confirm' => $this->translate('Category will be deleted. Are you sure?'),
-        'confirm_callback' => "function(link) { $.post($(link).attr('href'), {'categories' : [{$this->category['id']}]}, function(){location.href='{$this->url('application/page', ['controller' => 'slideshow-administration', 'action' => 'list-categories'], ['force_canonical' => true])}'}) }"
+        'confirm_callback' => "function(link) { $.post($(link).attr('href'), {'categories' : [{$this->category['id']}]}, function(){location.href='{$this->url('application/page', ['controller' => 'slideshows-administration', 'action' => 'list-categories'], ['force_canonical' => true])}'}) }"
     ],
     [
-        'controller' => 'slideshow-administration',
+        'controller' => 'slideshows-administration',
         'action' => 'add-category',
         'name' => $this->translate('Add a category'),
         'check_acl' => true
@@ -61,7 +61,7 @@
 ?>
 
 <?php $this->content = $this->partial('partial/data-grid', [
-'controller' => 'slideshow-administration',
+'controller' => 'slideshows-administration',
     'action' => 'browse-images',
     'slug' => $this->category['id'],
     'order_by' => $this->order_by,
@@ -97,7 +97,7 @@
         'regular_actions' => [
             [
                 'name' => $this->translate('Add an image'),
-                'controller' => 'slideshow-administration',
+                'controller' => 'slideshows-administration',
                 'action' => 'add-image',
                 'queries' => [
                     'category' => $this->category['id'],
@@ -108,7 +108,7 @@
         'multiple_actions' => [
             [
                 'name' => $this->translate('Delete selected'),
-                'controller' => 'slideshow-administration',
+                'controller' => 'slideshows-administration',
                 'action' => 'delete-images',
                 'check_acl' => true,
                 'confirm' => $this->translate('Selected images will be deleted. Are you sure?')
@@ -117,7 +117,7 @@
         'single_actions' => [
             [
                 'name' => $this->translate('Edit the image'),
-                'controller' => 'slideshow-administration',
+                'controller' => 'slideshows-administration',
                 'action' => 'edit-image',
                 'check_acl' => true,
                 'image' => $this->layoutAsset('icon/edit_action.png', 'image')
