@@ -71,17 +71,21 @@ INSERT INTO `page_widget_setting` (`name`, `widget`, `label`, `type`, `required`
 INSERT INTO `page_widget_setting` (`name`, `widget`, `label`, `type`, `required`, `order`, `category`, `description`, `check`,  `check_message`, `values_provider`) VALUES
 ('slideshow_image_height', @widgetId, 'Images height', 'integer', NULL, 4, @animationSettingCategoryId, NULL, 'return intval(''__value__'') > 0;', 'Value should be greater than 0', NULL);
 
+-- delete content service integration
+INSERT INTO `application_delete_content_service` (`path`, `module`) VALUES
+('\\Slideshow\\DeleteContentHandler\\SlideshowHandler', @moduleId);
+
 -- module tables
 
 CREATE TABLE IF NOT EXISTS `slideshow_category` (
     `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(50) NOT NULL,
-    `language` CHAR(2) NOT NULL,
+    `language` CHAR(2) DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE `category` (`name`, `language`),
     FOREIGN KEY (`language`) REFERENCES `localization_list`(`language`)
         ON UPDATE CASCADE
-        ON DELETE CASCADE
+        ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `slideshow_image` (

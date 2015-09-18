@@ -34,5 +34,6 @@ return [
     'Slideshow\View\Widget\SlideshowWidget'                  => __DIR__ . '/src/Slideshow/View/Widget/SlideshowWidget.php',
     'Slideshow\View\Helper\SlideshowImageUrl'                => __DIR__ . '/src/Slideshow/View/Helper/SlideshowImageUrl.php',
     'Slideshow\Module'                                       => __DIR__ . '/Module.php',
-    'Slideshow\Test\SlideshowBootstrap'                      => __DIR__ . '/test/Bootstrap.php'
+    'Slideshow\Test\SlideshowBootstrap'                      => __DIR__ . '/test/Bootstrap.php',
+    'Slideshow\DeleteContentHandler\SlideshowHandler'        => __DIR__ . '/src/Slideshow/DeleteContentHandler/SlideshowHandler.php'
 ];
