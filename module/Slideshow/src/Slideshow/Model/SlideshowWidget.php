@@ -28,10 +28,11 @@ class SlideshowWidget extends SlideshowBase
 {
 	/**
      * Get images
-     * 
+     *
+     * @param integer $category
      * @return \Zend\Db\ResultSet\ResultSet
      */
-    public function getImages()
+    public function getImages($category)
     {
         $select = $this->select();
         $select->from('slideshow_image')
@@ -40,7 +41,10 @@ class SlideshowWidget extends SlideshowBase
                 'description',
                 'image',
 				'url'
-            ]);
+            ])
+        ->where([
+            'category_id' => $category
+        ]);
 
         $statement = $this->prepareStatementForSqlObject($select);
         $resultSet = new ResultSet;
