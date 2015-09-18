@@ -284,6 +284,7 @@ class SlideshowBase extends ApplicationAbstractBase
                 'image',
                 'url',
                 'created',
+                'order'
             ])
             ->join(
                 ['b' => 'slideshow_category'],

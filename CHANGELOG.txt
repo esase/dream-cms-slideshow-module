@@ -1,6 +1,7 @@
 Slideshow 1.0.2, Sep 18, 2015
 ====================================
 
+- add possibility insert order for images
 - fixed listing of images
 - added functionality for deleting unused slideshows via the "delete content" service;
 - added a license info into each file;

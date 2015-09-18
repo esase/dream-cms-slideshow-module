@@ -96,6 +96,7 @@ CREATE TABLE IF NOT EXISTS `slideshow_image` (
     `image` VARCHAR(100) DEFAULT NULL,
     `url` VARCHAR(100) DEFAULT NULL,
     `created` INT(10) UNSIGNED NOT NULL,
+    `order` SMALLINT(5) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`),
     FOREIGN KEY (`category_id`) REFERENCES `slideshow_category`(`id`)
         ON UPDATE CASCADE

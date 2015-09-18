@@ -44,7 +44,8 @@ class SlideshowWidget extends SlideshowBase
             ])
         ->where([
             'category_id' => $category
-        ]);
+        ])
+        ->order('order');
 
         $statement = $this->prepareStatementForSqlObject($select);
         $resultSet = new ResultSet;

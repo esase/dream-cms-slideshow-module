@@ -366,7 +366,8 @@ class SlideshowAdministration extends SlideshowBase
             'id',
             'name',
             'url',
-            'created'
+            'created',
+            'order'
         ];
 
         $orderType = !$orderType || $orderType == 'desc'
@@ -383,6 +384,7 @@ class SlideshowAdministration extends SlideshowBase
                 'id',
                 'name',
                 'url',
+                'order',
                 'created'
             ])
             ->where([
