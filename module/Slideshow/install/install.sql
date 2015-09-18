@@ -13,19 +13,19 @@ SET @menuCategoryId = (SELECT LAST_INSERT_ID());
 SET @menuPartId = (SELECT `id` FROM `application_admin_menu_part` WHERE `name` = 'Modules');
 
 INSERT INTO `application_admin_menu` (`name`, `controller`, `action`, `module`, `order`, `category`, `part`) VALUES
-('List of categories', 'slideshow-administration', 'list-categories', @moduleId, @maxOrder + 1, @menuCategoryId, @menuPartId);
+('List of categories', 'slideshows-administration', 'list-categories', @moduleId, @maxOrder + 1, @menuCategoryId, @menuPartId);
 
 -- acl resources
 
 INSERT INTO `acl_resource` (`resource`, `description`, `module`) VALUES
-('slideshow_administration_list_categories', 'ACL - Viewing slideshow categories in admin area', @moduleId),
-('slideshow_administration_add_category', 'ACL - Adding slideshow categories in admin area', @moduleId),
-('slideshow_administration_delete_categories', 'ACL - Deleting slideshow categories in admin area', @moduleId),
-('slideshow_administration_edit_category', 'ACL - Editing slideshow categories in admin area', @moduleId),
-('slideshow_administration_browse_images', 'ACL - Browsing slideshow images in admin area', @moduleId),
-('slideshow_administration_add_image', 'ACL - Adding slideshow images in admin area', @moduleId),
-('slideshow_administration_edit_image', 'ACL - Editing slideshow images in admin area', @moduleId),
-('slideshow_administration_delete_images', 'ACL - Deleting slideshow images in admin area', @moduleId);
+('slideshows_administration_list_categories', 'ACL - Viewing slideshow categories in admin area', @moduleId),
+('slideshows_administration_add_category', 'ACL - Adding slideshow categories in admin area', @moduleId),
+('slideshows_administration_delete_categories', 'ACL - Deleting slideshow categories in admin area', @moduleId),
+('slideshows_administration_edit_category', 'ACL - Editing slideshow categories in admin area', @moduleId),
+('slideshows_administration_browse_images', 'ACL - Browsing slideshow images in admin area', @moduleId),
+('slideshows_administration_add_image', 'ACL - Adding slideshow images in admin area', @moduleId),
+('slideshows_administration_edit_image', 'ACL - Editing slideshow images in admin area', @moduleId),
+('slideshows_administration_delete_images', 'ACL - Deleting slideshow images in admin area', @moduleId);
 
 INSERT INTO `acl_resource` (`resource`, `description`, `module`) VALUES
 ('slideshow_view', 'ACL - Viewing slideshow', @moduleId);

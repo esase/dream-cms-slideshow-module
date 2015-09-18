@@ -1,0 +1,4 @@
+Slideshow 1.0.2, Sep 18, 2015
+====================================
+
+- added a license info into each file;
