@@ -1,7 +1,12 @@
+Slideshow 1.0.3, Oct 21, 2015
+====================================
+
+- security added csrf tokens in all forms;
+
 Slideshow 1.0.2, Sep 18, 2015
 ====================================
 
-- add possibility insert order for images
-- fixed listing of images
+- add possibility insert order for images;
+- fixed listing of images;
 - added functionality for deleting unused slideshows via the "delete content" service;
 - added a license info into each file;
