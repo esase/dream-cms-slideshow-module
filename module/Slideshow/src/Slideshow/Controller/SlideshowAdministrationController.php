@@ -57,7 +57,9 @@ class SlideshowAdministrationController extends ApplicationAbstractAdministratio
     {
         $request = $this->getRequest();
 
-        if ($request->isPost()) {
+        if ($request->isPost() &&
+                $this->applicationCsrf()->isTokenValid($request->getPost('csrf'))) {
+
             if (null !== ($categoriesIds = $request->getPost('categories', null))) {
                 // delete selected categories
                 $deleteResult = false;
@@ -169,6 +171,7 @@ class SlideshowAdministrationController extends ApplicationAbstractAdministratio
                 $this->getPage(), $this->getPerPage(), $this->getOrderBy(), $this->getOrderType());
 
         return new ViewModel([
+            'csrf_token' => $this->applicationCsrf()->getToken(),
             'category' => $category,
             'paginator' => $paginator,
             'order_by' => $this->getOrderBy(),
@@ -238,6 +241,7 @@ class SlideshowAdministrationController extends ApplicationAbstractAdministratio
         }
 
         return new ViewModel([
+            'csrf_token' => $this->applicationCsrf()->getToken(),
             'image_form' => $imageForm->getForm(),
             'image' => $image
         ]);
@@ -250,7 +254,9 @@ class SlideshowAdministrationController extends ApplicationAbstractAdministratio
     {
         $request = $this->getRequest();
 
-        if ($request->isPost()) {
+        if ($request->isPost() &&
+                $this->applicationCsrf()->isTokenValid($request->getPost('csrf'))) {
+
             if (null !== ($imagesIds = $request->getPost('images', null))) {
                 // delete selected images
                 $deleteResult = false;
@@ -360,6 +366,7 @@ class SlideshowAdministrationController extends ApplicationAbstractAdministratio
         }
 
         return new ViewModel([
+            'csrf_token' => $this->applicationCsrf()->getToken(),
             'category' => $category,
             'image_form' => $imageForm->getForm()
         ]);
@@ -467,6 +474,7 @@ class SlideshowAdministrationController extends ApplicationAbstractAdministratio
         }
 
         return new ViewModel([
+            'csrf_token' => $this->applicationCsrf()->getToken(),
             'category' => $category,
             'category_form' => $categoryForm->getForm()
         ]);

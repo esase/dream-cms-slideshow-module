@@ -65,7 +65,7 @@ class SlideshowImage extends ApplicationAbstractCustomForm
      */
     protected $image;
 
-    /**
+    /**isPost
      * Form elements
      *
      * @var array
